@@ -1,0 +1,22 @@
+@import 'vars';
+
+html, body, .blur {
+    height: $full-stretch;
+    margin: 0;
+    font-size: $font-size;
+    font-family: $font-lucida;
+}
+
+input:focus {
+    outline: none;
+}
+
+.action-btn {
+    padding: $space-small;
+    background-color: white;
+    &:hover {
+        background-color: darkgreen;
+        color: white;
+        cursor: pointer;
+    }
+}

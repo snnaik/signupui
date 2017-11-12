@@ -4,7 +4,7 @@
   "description": "Sign Up UI",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack -d --watch --display-error-details",
+    "dev": "webpack -d --display-error-details",
     "build": "webpack -p"
   },
   "repository": {

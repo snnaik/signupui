@@ -1,31 +1,67 @@
 import React from 'react';
-import Button from './button';
+import Form from './form';
 
 class SignUp extends React.Component {
+    constructor( props ) {
+        super( props );
+        this.handleChange = this.handleChange.bind( this );
+
+        this.state = {
+            field : ''
+        };
+
+        this.fieldData = [
+            {
+                'labelFor' : 'fname',
+                'labelTitle' : 'first name',
+                'inputType' : 'text'
+            },
+            {
+                'labelFor' : 'lname',
+                'labelTitle' : 'last name',
+                'inputType' : 'text'
+            },
+            {
+                'labelFor' : 'email',
+                'labelTitle' : 'email address',
+                'inputType' : 'email'
+            },
+            {
+                'labelFor' : 'password',
+                'labelTitle' : 'password',
+                'inputType' : 'password'
+            },
+            {
+                'labelFor' : 'confirm',
+                'labelTitle' : 'confirm password',
+                'inputType' : 'password'
+            }
+        ];
+    }
+
+    handleChange( e ) {
+        const name = e.target.name,
+            value = e.target.value;
+
+        if( value !== '' ) {
+            if( name === this.fieldData[ 0 ].labelFor || name === this.fieldData[ 1 ].labelFor ) {
+                if( !/[A-z a-z].*/.test( value ) ) {
+                    alert( 'name' );
+                }
+            } else if( name === this.fieldData[ 2 ].labelFor ) {
+                /[a-z_0-9\-]+@[a-z]+\.[a-z]{1,3}/.test( value ) ? this.setState( { field : '' } ) : this.setState( { field : 'email' } );
+            } else if( !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test( value ) ) {
+                alert( 'pw' );
+            }
+        }
+    }
+
     render() {
         return (
             <div className="blur">
                 <div className='main'>
                     <h2>Please Sign Up</h2>
-
-                    <form action="/submit" method="post">
-                        <label htmlFor="fname">first name <sup>*</sup></label>
-                        <input type='text' name='fname' pattern="[A-Za-z]" title="Letters only" required/>
-
-                        <label htmlFor="lname">last name <sup>*</sup></label>
-                        <input type='text' name='lname' pattern="[A-Za-z]" title="Letters only" required/>
-
-                        <label htmlFor="email">email address <sup>*</sup></label>
-                        <input type='email' name='email' title="Email address" required/>
-
-                        <label htmlFor="password">password <sup>*</sup></label>
-                        <input type='password' name='password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number, one uppercase letter, one lowercase letter, and at least 8 or more characters" required/>
-
-                        <label htmlFor="confirm">confirm password <sup>*</sup></label>
-                        <input type='password' name='confirm' required/>
-
-                        <Button className='action-btn' buttonTitle='Submit'/>
-                    </form>
+                    <Form fields={ this.fieldData } inputChange={ ( e ) => this.handleChange( e ) } isInvalid={ this.state.field }/>
                 </div>
             </div>
         );

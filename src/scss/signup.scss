@@ -6,6 +6,16 @@
     display: flex;
 }
 
+.action-btn {
+    display: block;
+    margin: auto;
+    &:hover {
+        background-color: darkgreen;
+        color: white;
+        cursor: pointer;
+    }
+}
+
 .main {
     padding: $space-small $space-medium;
     background-color: white;
@@ -37,6 +47,30 @@
             border-bottom: $border-blue;
             border-left: $border-blue;
         }
+        &.error {
+            border: 1px solid red;
+            animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+
+            @keyframes shake {
+                10%, 90% {
+                    transform: translate3d(-1px, 0, 0);
+                }
+
+                20%, 80% {
+                    transform: translate3d(2px, 0, 0);
+                }
+
+                30%, 50%, 70% {
+                    transform: translate3d(-4px, 0, 0);
+                }
+
+                40%, 60% {
+                    transform: translate3d(4px, 0, 0);
+                }
+            }
+        }
     }
     label {
         padding-left: $space-tiny;
@@ -45,15 +79,6 @@
         font-size: $font-small;
         color: gray;
         border-left: $border-silver;
-    }
-    .action-btn {
-        display: block;
-        margin: auto;
-        &:hover {
-            background-color: darkgreen;
-            color: white;
-            cursor: pointer;
-        }
     }
     sup {
         color: red;

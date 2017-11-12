@@ -3,26 +3,18 @@ import Button from "./button";
 import Field from "./field";
 
 class Form extends React.Component {
-    constructor( props ) {
-        super( props );
-        this.handleSubmit = this.handleSubmit.bind( this );
-    }
-
-    handleSubmit( e ) {
-        e.preventDefault();
-        return false;
-    }
-
     render() {
         return (
-            <form onSubmit={ this.handleSubmit }>
-                { this.props.fields.map( ( val, i ) => {
+            <form>
+                { this.props.fieldData.map( ( val, i ) => {
                     return <Field key={ i }
-                                  errorClass={ val.labelFor === this.props.isInvalid ? 'error' : '' }
+                                  errorClass={ this.props.isInvalid[ val.labelFor ] ? 'error' : '' }
                                   labelFor={ val.labelFor }
                                   labelTitle={ val.labelTitle }
                                   inputType={ val.inputType }
-                                  inputChange={ ( e ) => this.props.inputChange( e ) }/>;
+                                  showPopup={ this.props.popupField === val.labelFor && this.props.showPopup }
+                                  onFocusIn={ ( e ) => this.props.onFocusIn( e ) }
+                                  onFocusOut={ ( e ) => this.props.onFocusOut( e ) }/>;
                 } ) }
                 <Button className='action-btn' onClick={ () => {
                 } } buttonTitle='Submit'/>

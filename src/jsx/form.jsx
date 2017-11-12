@@ -12,6 +12,7 @@ class Form extends React.Component {
                                   labelFor={ val.labelFor }
                                   labelTitle={ val.labelTitle }
                                   inputType={ val.inputType }
+                                  errorMsg={ val.errorMsg }
                                   showPopup={ this.props.popupField === val.labelFor && this.props.showPopup }
                                   onFocusIn={ ( e ) => this.props.onFocusIn( e ) }
                                   onFocusOut={ ( e ) => this.props.onFocusOut( e ) }/>;

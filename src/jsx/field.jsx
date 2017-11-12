@@ -13,7 +13,7 @@ class Field extends React.Component {
                        onFocus={ ( e ) => this.props.onFocusIn( e ) }
                        onBlur={ ( e ) => this.props.onFocusOut( e ) }/>
                 { !!this.props.errorClass ?
-                    <Popup text={ 'Please enter a valid ' + this.props.labelTitle.toUpperCase() }/> : '' }
+                    <Popup text={ this.props.errorMsg ? this.props.errorMsg : 'Please enter a valid ' + this.props.labelTitle.toUpperCase() }/> : '' }
                 { this.props.showPopup ? <PasswordPopup/> : '' }
             </span>
         );

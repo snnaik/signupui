@@ -6,6 +6,7 @@ class SignUp extends React.Component {
         super( props );
         this.handleFocusOut = this.handleFocusOut.bind( this );
         this.handleFocusIn = this.handleFocusIn.bind( this );
+        this.handleClick = this.handleClick.bind( this );
 
         this.fieldData = [
             {
@@ -31,7 +32,8 @@ class SignUp extends React.Component {
             {
                 'labelFor' : 'confirm',
                 'labelTitle' : 'confirm password',
-                'inputType' : 'password'
+                'inputType' : 'password',
+                'errorMsg' : 'Confirm Password and Password must match!'
             }
         ];
 
@@ -52,6 +54,7 @@ class SignUp extends React.Component {
                 ( ( name === this.fieldData[ 0 ].labelFor || name === this.fieldData[ 1 ].labelFor ) && !/^[a-zA-Z\s]*$/.test( value ) )
                 || ( name === this.fieldData[ 2 ].labelFor && !/[a-z_0-9\-]+@[a-z]+\.[a-z]{1,3}/.test( value ) )
                 || ( name === this.fieldData[ 3 ].labelFor && !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test( value ) )
+                || (name === this.fieldData[ 4 ].labelFor && document.getElementsByName( this.fieldData[ 3 ].labelFor )[ 0 ].value !== value)
             ) {
                 isInvalid = true;
             }
@@ -81,6 +84,10 @@ class SignUp extends React.Component {
         }
 
         this.setState( { showPopup : !errorShown && name === this.fieldData[ 3 ].labelFor } );
+
+    }
+
+    handleClick(e){
 
     }
 

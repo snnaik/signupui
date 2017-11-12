@@ -3,7 +3,7 @@ import React from 'react';
 class PasswordPopup extends React.Component {
     render() {
         return (
-            <div className='popup'>
+            <div className='popup password-popup'>
                 Password must contain:
                 <ul>
                     <li>minimum 8 characters</li>

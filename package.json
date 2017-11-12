@@ -2,7 +2,6 @@
   "name": "signupui",
   "version": "1.0.0",
   "description": "Sign Up UI",
-  "main": "index.js",
   "scripts": {
     "dev": "webpack -d --display-error-details",
     "build": "webpack -p"

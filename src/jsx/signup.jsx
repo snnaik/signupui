@@ -37,8 +37,7 @@ class SignUp extends React.Component {
 
         this.state = {
             isInvalid : {},
-            showPopup : false,
-            errorShown : false
+            showPopup : false
         };
     }
 
@@ -50,32 +49,39 @@ class SignUp extends React.Component {
 
         if( value !== '' ) {
             if(
-                ( ( name === this.fieldData[ 0 ].labelFor || name === this.fieldData[ 1 ].labelFor ) && !/[A-Z a-z].*/.test( value ) )
+                ( ( name === this.fieldData[ 0 ].labelFor || name === this.fieldData[ 1 ].labelFor ) && !/^[a-zA-Z\s]*$/.test( value ) )
                 || ( name === this.fieldData[ 2 ].labelFor && !/[a-z_0-9\-]+@[a-z]+\.[a-z]{1,3}/.test( value ) )
                 || ( name === this.fieldData[ 3 ].labelFor && !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test( value ) )
             ) {
                 isInvalid = true;
             }
 
-            this.setState( {
-                isInvalid : Object.assign( {}, this.state.isInvalid, { [ name ] : isInvalid } ),
-                errorShown : isInvalid
-            } );
+            this.setState( { isInvalid : Object.assign( {}, this.state.isInvalid, { [ name ] : isInvalid } ) } );
         }
     }
 
     handleFocusIn( e ) {
-        let name = e.target.name;
+        let name = e.target.name,
+            isInvalid = this.state.isInvalid;
 
-        if( this.state.isInvalid[ name ] ) {
+        if( isInvalid[ name ] ) {
             e.target.classList.remove( 'error' );
             this.setState( {
-                isInvalid : Object.assign( {}, this.state.isInvalid, { [ name ] : false } ),
-                errorShown : false
+                isInvalid : Object.assign( {}, isInvalid, { [ name ] : false } ),
+                showPopup : name === this.fieldData[ 3 ].labelFor
             } );
         }
 
-        this.setState( { showPopup : !this.state.errorShown && name === this.fieldData[ 3 ].labelFor } );
+        let errorShown = false;
+        for( let key in isInvalid ) {
+            if( isInvalid.hasOwnProperty( key ) && isInvalid[ key ] ) {
+                errorShown = true;
+                break;
+            }
+        }
+
+        this.setState( { showPopup : !errorShown && name === this.fieldData[ 3 ].labelFor } );
+
     }
 
     render() {

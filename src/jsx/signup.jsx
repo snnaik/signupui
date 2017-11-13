@@ -6,7 +6,7 @@ class SignUp extends React.Component {
         super( props );
         this.handleFocusOut = this.handleFocusOut.bind( this );
         this.handleFocusIn = this.handleFocusIn.bind( this );
-        this.handleClick = this.handleClick.bind( this );
+        this.invalidateFields = this.invalidateFields.bind( this );
 
         this.fieldData = [
             {
@@ -73,22 +73,21 @@ class SignUp extends React.Component {
                 isInvalid : Object.assign( {}, isInvalid, { [ name ] : false } ),
                 showPopup : name === this.fieldData[ 3 ].labelFor
             } );
-        }
-
-        let errorShown = false;
-        for( let key in isInvalid ) {
-            if( isInvalid.hasOwnProperty( key ) && isInvalid[ key ] ) {
-                errorShown = true;
-                break;
+        } else {
+            let errorShown = false;
+            for( let key in isInvalid ) {
+                if( isInvalid.hasOwnProperty( key ) && isInvalid[ key ] ) {
+                    errorShown = true;
+                    break;
+                }
             }
+
+            this.setState( { showPopup : !errorShown && name === this.fieldData[ 3 ].labelFor } );
         }
-
-        this.setState( { showPopup : !errorShown && name === this.fieldData[ 3 ].labelFor } );
-
     }
 
-    handleClick(e){
-
+    invalidateFields( fields ) {
+        this.setState( { isInvalid : Object.assign( {}, fields ) } );
     }
 
     render() {
@@ -97,10 +96,11 @@ class SignUp extends React.Component {
                 <div className='main'>
                     <h2>Please Sign Up</h2>
                     <Form fieldData={ this.fieldData }
-                          onFocusOut={ ( e ) => this.handleFocusOut( e ) }
-                          onFocusIn={ ( e ) => this.handleFocusIn( e ) }
+                          onFocusOut={ e => this.handleFocusOut( e ) }
+                          onFocusIn={ e => this.handleFocusIn( e ) }
                           popupField={ this.fieldData[ 3 ].labelFor }
                           showPopup={ this.state.showPopup }
+                          invalidateFields={ fields => this.invalidateFields( fields ) }
                           isInvalid={ this.state.isInvalid }/>
                 </div>
             </div>

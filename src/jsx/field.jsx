@@ -10,8 +10,8 @@ class Field extends React.Component {
                 <input className={ this.props.errorClass }
                        type={ this.props.inputType }
                        name={ this.props.labelFor }
-                       onFocus={ ( e ) => this.props.onFocusIn( e ) }
-                       onBlur={ ( e ) => this.props.onFocusOut( e ) }/>
+                       onFocus={ e => this.props.onFocusIn( e ) }
+                       onBlur={ e => this.props.onFocusOut( e ) }/>
                 { !!this.props.errorClass ?
                     <Popup text={ this.props.errorMsg ? this.props.errorMsg : 'Please enter a valid ' + this.props.labelTitle.toUpperCase() }/> : '' }
                 { this.props.showPopup ? <PasswordPopup/> : '' }
